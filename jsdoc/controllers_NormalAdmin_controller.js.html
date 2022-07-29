@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controllers/NormalAdmin_controller.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controllers/NormalAdmin_controller.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file This file inside Controllers has function definition for normal Admin/Faculty  members functionalities
+ */
+
+
+ const normalAdmin = require('../models/normalAdmin'); //acquiring Schema for admin model
+ const bcrypt = require('bcryptjs');
+ const Article = require('../models/Blog');
+ const Test = require('../models/Test');
+ 
+ 
+ 
+ //.....................Implementing Login Part...............................................
+ 
+ 
+ /**
+  * Function to GET request for rendering HTML for login page
+  * @module loginAdmin_get
+  * @name get/login
+  * @param {string} path
+  * @param {callback} middleware
+  * @param {*} req 
+  * @param {login.ejs} res 
+  * @exports loginAdmin_get
+  */
+ exports.loginAdmin_get = (req, res) => {
+     res.render('loginNormaladmin');
+ }
+ 
+ /**
+  * Function to POST request for validating login and if user is verified a response 'ok' will be send to
+  * client otherwise a status code '400' will be send to client.
+  * @module loginAdmin_post
+  * @param {Object} req 
+  * @param {Number} res 
+  * @param {callback} middleware
+  * @returns {number}a status code o '400' when input fields are not filled
+  * @async 
+  * @exports loginAdmin_post
+  */
+ 
+ exports.loginAdmin_post = async(req, res) => {
+     try {
+         /**
+          * object destructuring to get email and password from client
+          */
+ 
+         const { email, password } = req.body;
+         if (!email || !password) {
+             return res.status(400).json({ error: "Please fill the data" });
+         }
+         /**
+          * Storing user data if user exists in database 
+          */
+ 
+         const Adminsearch = await normalAdmin.findOne({ email: email });
+ 
+         if (!Adminsearch) {
+             res.status(400).json({ error: "admin not found" });
+         } else {
+             const isValidlogin = await bcrypt.compare(password, Adminsearch.password);
+             const token = await Adminsearch.generateAuthToken();
+             // console.log(token); //for testing pupose 
+             res.cookie("jwtoken", token, {
+                 expires: new Date(Date.now() + 60480000), //expiry data of token set for 1 week
+                 httpOnly: true
+             });
+ 
+             if (!isValidlogin) {
+                 res.status(400).json({ error: "admin not found" });
+             } else {
+                 console.log('Normal Admin found'); //For testing purpose in backend
+                 res.status(200).json({ status: 'normalAdmin' });
+             }
+         }
+ 
+     } catch (err) {
+         console.log(err);
+     };
+ }
+ 
+ //.....................Implementing Normal Admin Dashboard......................
+ 
+ /**
+  * Function to render normal admin  dashboard
+  * @module dashboard_get
+  * @param {*} req 
+  * @param {NormalAdminDashBoard.ejs} res 
+  * @exports dashboard_get
+  */
+ exports.dashboard_get = (req, res) => {
+     res.render('NormalAdminDashboard');
+ };
+ 
+ /**
+  * Function to get admin details to show in the dashboard
+  * @module admin_details_get
+  * @param {Object} req 
+  * @param {Object} res 
+  * @exports admin_details_get
+  */
+ exports.admin_details_get = (req, res) => {
+     res.send(req.verifiedAdmin);
+ };
+ 
+ //.....................Implementing Normal Admin Profile......................
+ 
+ /**
+  * Function to render normal admin  Profile
+  * @module adminProfile_get
+  * @param {*} req 
+  * @param {NormalAdminDashBoard.ejs} res 
+  * @exports adminProfile_get
+  */
+ exports.adminProfile_get = (req, res) => {
+     res.render('NormalAdminProfile');
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ //.......................blog section Area CRUD operation.........................................
+ 
+ /**
+  * Function to render add blog page for adding a blog
+  * @module addBlog_get
+  * @param {*} req 
+  * @param {addblog.ejs} res 
+  * @exports addBlog_get
+  */
+ exports.addBlog_get = (req, res) => {
+     res.render('addBlog');
+ };
+ 
+ 
+ 
+ /**
+  * Function to add blog post to the database
+  * @module addBlog_post
+  * @param {Object} req 
+  * @param {Number|Object} res 
+  * @returns {Number} status code
+  * @exports addBlog_post
+  */
+ exports.addBlog_post = async(req, res) => {
+     console.log("Coming in backend to add blog");
+ 
+     // console.log(req.body)
+ 
+     const createdById = req.AdminId;
+     const createdBy = res.locals.user;
+     const title = req.body.title;
+     const description = req.body.description;
+     const blogContent = req.body.blogContent;
+     const markdown = req.body.markdown;
+ 
+     // trying to save current user email in during post in articles collection
+     // const createdBy = res.locals.Admin;
+     // const createdById = res.locals.Admin.id;
+ 
+     // image
+     const image = req.files;
+     console.log(image, blogContent)
+ 
+     //  category
+     const category = req.body.category;
+ 
+     let article = new Article({
+         title: title,
+         description: description,
+         blogContent: blogContent,
+         markdown: markdown,
+         createdBy: createdBy,
+         createdById: createdById,
+         image: image,
+         category: category
+     })
+ 
+     try {
+         const articleData = await article.save();
+         // console.log(article.id)
+         return res.status(201).redirect(`/${articleData.slug}`);
+     } catch (error) {
+         console.log(error);
+         res.status(401).send({ error: "Error Occured, Please try again. " });
+     }
+ };
+ 
+ 
+ 
+ 
+ 
+ /**
+  * Function to show a particular blog using the slug 
+  * @module showBlog_get
+  * @param {String} req 
+  * @param {Object} res 
+  * @exports showBlog_get
+  */
+ 
+ exports.showBlog_get = async(req, res) => {
+ 
+     console.log(req.params.slug)
+ 
+     const article = await Article.findOne({ slug: req.params.slug })
+ 
+     if (article == undefined) {
+         res.redirect('/')
+     } else {
+         res.render('showBlog', { article: article })
+     }
+ };
+ 
+ 
+ 
+ /**
+  * Function to show all blogs created by a particular admin
+  * @module showAllBlogs_get
+  * @param {_id} req 
+  * @param {Array|Object} res 
+  * @async 
+  * @exports showAllBlogs_get
+  */
+ exports.showAllBlogs_get = async(req, res) => {
+     const id = req.params.id;
+     try {
+         const allBlogs = await Article.find({ createdById: id });
+         if (allBlogs.length > 0) {
+             res.status(200).json(allBlogs);
+         } else {
+             res.status(404).json({ error: 'No blogs yet' });
+         }
+     } catch (err) {
+         console.log(err);
+     }
+ };
+ 
+ 
+ /**
+  * Function to Update a blog using the id of the blog
+  * @module updateBlog_put
+  * @param {_id} req 
+  * @param {JSON|Number} res Json Data and status Code 
+  * @async 
+  * @exports updateBlog_put
+  */
+ exports.updateBlog_put = async(req, res) => {
+     const id = req.params.id;
+     console.log(id);
+     if (!req.body) {
+         res.status(400).send({ message: "Data might not be filled" });
+     }
+ 
+     Article.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+         .then(data => {
+             if (!data) {
+                 res.status(404).send({ message: "can not update user" });
+             } else {
+                 res.status(200).send(data);
+             }
+         }).catch(err => {
+             console.log(err);
+             res.status(500).send({ message: "can not update data" });
+         });
+ };
+ 
+ 
+ /**
+  * Function to delete a particular blog using the blog Id
+  * @module deleteBlog_delete
+  * @param {_id} req 
+  * @param {Object} res 
+  * @async 
+  * @exports deleteBlog_delete
+  */
+ exports.deleteBlog_delete = async(req, res) => {
+     const id = req.params.id;
+     Article.findByIdAndDelete(id).then(data => {
+         if (!data) {
+             res.status(404).send({ message: "can't delete'" });
+         } else {
+             res.send({ message: "Blog deleted" });
+         }
+     }).catch(err => {
+         res.status(500).send({ message: err });
+     })
+ };
+ 
+ 
+ 
+ 
+ //.................................Implementing Normal admin Test part.........................
+ /**
+  * Function to save MCQ test data created by an admin
+  * @module saveTest_post
+  * @param {Object} req 
+  * @param {Number} res Status code 
+  * @exports saveTest_post
+  */
+ exports.saveTest_post = async(req, res) => {
+     const createdById = req.params.id;
+     const title = req.body.title;
+     const noOfQestions = req.body.noOfQestions;
+     const questions = req.body.questions;
+     console.log(noOfQestions);
+     let mcqTest = new Test({
+         title,
+         noOfQestions,
+         createdById,
+         questions
+     });
+ 
+     try {
+         const testData = await mcqTest.save();
+         res.status(200).json(testData.slug);
+     } catch (err) {
+         console.log(err);
+     }
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+ /**
+  * Function to render  the test Panel
+  * @module testAdmin_get
+  * @param {*} req 
+  * @param {adminTestPanel.ejs} res 
+  * @exports testAdmin_get
+  */
+ exports.testAdmin_get = (req, res) => {
+     res.render('testPanel');
+ }
+ 
+ 
+ /**
+  * Function to render mcqTest.ejs File
+  * @module testSlug_get
+  * @param {*} req 
+  * @param {mcqTest.ejs} res 
+  * @async
+  * @exports testSlug_get
+  */
+ exports.testSlug_get = async(req, res) => {
+     res.locals.slug = req.query.slug;
+     res.locals.userID = req.query.userID;
+     res.render('mcqTest',{slug:res.locals.slug,userid:res.locals.userID});
+ }
+ 
+ 
+ /**
+  * Function to send test data by a particular slug
+  * @module testData_get
+  * @param {*} req 
+  * @param {Number|JSON} res 
+  * @async
+  * @exports testData_get
+  */
+ exports.testData_get = async(req, res) => {
+     let slug = req.params.slug;
+     try {
+         const result = await Test.find({ slug: slug });
+         if (result.length > 0) {
+             console.log(result);
+             res.status(200).json(result);
+         }
+     } catch (err) {
+         console.log(err);
+         res.status(500).json(err);
+     }
+ 
+ }
+ 
+ 
+ 
+ exports.allBlogs_get = async(req, res) => {
+     try {
+         const result = await Article.find({ createdAt: { $gte: new Date("2022-01-15").toISOString(), $lte: new Date("2022-02-30").toISOString() } }).
+         populate('createdById');
+         if (result) {
+             res.status('200').json(result);
+         }
+     } catch (err) {
+         console.log(err);
+         res.status(500).json(err);
+     }
+ }
+ 
+ 
+ exports.Blog_category_get = async (req,res)=>{
+     const category = req.params.category;
+     try{
+         const result = await Article.find({ category: category}).
+         populate('createdById');
+         if(result){
+             res.status(200).json(result);
+         }
+     }catch(err){
+         console.log(err);
+         res.status(500).json(err);
+     }
+ }
+ 
+ 
+ exports.Admin_test_get = async (req,res)=>{
+     const id = req.params.id;
+     try{
+         const result = await Test.find({createdById: id});
+         if(result.length > 0){
+             res.status(200).json(result);
+         }
+     }catch(err){
+         console.log(err);
+         res.status(500).json(err);
+     }
+ }
+ 
+ 
+ exports.Admin_test_delete= async (req,res)=>{
+     const id = req.params.id;
+     Test.findByIdAndDelete(id).then(data => {
+         if (!data) {
+             res.status(404).send({ message: "can't delete'" });
+         } else {
+             res.send({ message: "Test deleted" });
+         }
+     }).catch(err => {
+         res.status(500).send({ message: err });
+     })
+ }
+ 
+ exports.logout_normalAdmin=async (req,res)=>{
+     res.clearCookie('jwtoken');
+     res.status(200).redirect('/login');
+ }</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-addBlog_get.html">addBlog_get</a></li><li><a href="module-addBlog_post.html">addBlog_post</a></li><li><a href="module-admin_details_get.html">admin_details_get</a></li><li><a href="module-adminProfile_get.html">adminProfile_get</a></li><li><a href="module-create_admin.html">create_admin</a></li><li><a href="module-dashboard_get.html">dashboard_get</a></li><li><a href="module-delete_admin_data.html">delete_admin_data</a></li><li><a href="module-deleteBlog_delete.html">deleteBlog_delete</a></li><li><a href="module-edit_admin_data_get.html">edit_admin_data_get</a></li><li><a href="module-get_login.html">get/login</a></li><li><a href="module-get_register.html">get/register</a></li><li><a href="module-get_admin_data.html">get_admin_data</a></li><li><a href="module-get_superadmin_panel.html">get_superadmin_panel</a></li><li><a href="module-getAllDocuments.html">getAllDocuments</a></li><li><a href="module-loginAdmin_post.html">loginAdmin_post</a></li><li><a href="module-normal_admin_router.html">normal_admin_router</a></li><li><a href="module-normal_user_home.html">normal_user_home</a></li><li><a href="module-normal_user_login_post.html">normal_user_login_post</a></li><li><a href="module-normal_user_login_signup.html">normal_user_login_signup</a></li><li><a href="module-normal_user_logout_get.html">normal_user_logout_get</a></li><li><a href="module-register_normal_user_post.html">register_normal_user_post</a></li><li><a href="module-saveTest_post.html">saveTest_post</a></li><li><a href="module-showAllBlogs_get.html">showAllBlogs_get</a></li><li><a href="module-showBlog_get.html">showBlog_get</a></li><li><a href="module-super_Admin_Routes.html">super_Admin_Routes</a></li><li><a href="module-SuperAdmin_login_post.html">SuperAdmin_login_post</a></li><li><a href="module-superAdmin_logout_get.html">superAdmin_logout_get</a></li><li><a href="module-SuperAdmin_register_post.html">SuperAdmin_register_post</a></li><li><a href="module-test_module.html">test_module</a></li><li><a href="module-testAdmin_get.html">testAdmin_get</a></li><li><a href="module-testData_get.html">testData_get</a></li><li><a href="module-testSlug_get.html">testSlug_get</a></li><li><a href="module-update_admin_data_put.html">update_admin_data_put</a></li><li><a href="module-updateBlog_put.html">updateBlog_put</a></li><li>{mongoose.module:model}</li></ul><h3>Global</h3><ul><li><a href="global.html#adminPanel">adminPanel</a></li><li><a href="global.html#adminSchema">adminSchema</a></li><li><a href="global.html#authRoute">authRoute</a></li><li><a href="global.html#bcrypt">bcrypt</a></li><li><a href="global.html#bodyParser">bodyParser</a></li><li><a href="global.html#cookieParser">cookieParser</a></li><li><a href="global.html#DELETE">DELETE</a></li><li><a href="global.html#deleteAdmin">deleteAdmin</a></li><li><a href="global.html#deleteBlog">deleteBlog</a></li><li><a href="global.html#displayCreateBlogSection">displayCreateBlogSection</a></li><li><a href="global.html#displayData">displayData</a></li><li><a href="global.html#displayShowBlogSection">displayShowBlogSection</a></li><li><a href="global.html#dotenv">dotenv</a></li><li><a href="global.html#editAdmin">editAdmin</a></li><li><a href="global.html#editBlog">editBlog</a></li><li><a href="global.html#express">express</a></li><li><a href="global.html#fillInputfields">fillInputfields</a></li><li><a href="global.html#formFields">formFields</a></li><li><a href="global.html#GET">GET</a></li><li><a href="global.html#getAdminData">getAdminData</a></li><li><a href="global.html#getAdminId">getAdminId</a></li><li><a href="global.html#getAllData">getAllData</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#mongoose">mongoose</a></li><li><a href="global.html#normalAdminSchema">normalAdminSchema</a></li><li><a href="global.html#path">path</a></li><li><a href="global.html#POST">POST</a></li><li><a href="global.html#postBlog">postBlog</a></li><li><a href="global.html#PUT">PUT</a></li><li><a href="global.html#redirectSignup">redirectSignup</a></li><li><a href="global.html#routes">routes</a></li><li><a href="global.html#SuperAdminSchema">SuperAdminSchema</a></li><li><a href="global.html#userSchema">userSchema</a></li><li>{<a href="global.html#POST">POST</a>}</li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue Mar 22 2022 20:50:39 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+/* video section */
+
+#video-container-courses-buy-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#video-container-courses-buy-btn button {
+  border: 0px;
+  background-color: #5567ff;
+  color: white;
+  padding: 0.8rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  font-family: Exo\2, Helvetica Neue, Arial, sans-serif;
+}
+
+#video-container-courses-buy-btn button:hover {
+  background-color: #5f6ef8;
+  cursor: pointer;
+}

@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <%= article.title %> ExamBytes
+        </title>
+
+        <!-- Prevent the demo from appearing in search engines -->
+        <meta name="robots" content="noindex">
+
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CRoboto:400,500%7CExo+2:600&display=swap" rel="stylesheet">
+
+        <!-- Preloader -->
+        <link type="text/css" href="/Theme/vendor/spinkit.css" rel="stylesheet">
+
+        <!-- Perfect Scrollbar -->
+        <link type="text/css" href="/Theme/vendor/perfect-scrollbar.css" rel="stylesheet">
+
+        <!-- Material Design Icons -->
+        <link type="text/css" href="/Theme/css/material-icons.css" rel="stylesheet">
+
+        <!-- Font Awesome Icons -->
+        <link type="text/css" href="/Theme/css/fontawesome.css" rel="stylesheet">
+
+        <!-- Preloader -->
+        <link type="text/css" href="/Theme/css/preloader.css" rel="stylesheet">
+
+        <!-- App CSS -->
+        <link type="text/css" href="/Theme/css/app.css" rel="stylesheet">
+
+        <link type="text/css" href="/css/ShowBlog.css" rel="stylesheet">
+
+</head>
+
+<body class="layout-sticky-subnav layout-default ">
+
+    <div class="preloader">
+        <div class="sk-chase">
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+        </div>
+
+        <!-- <div class="sk-bounce">
+    <div class="sk-bounce-dot"></div>
+    <div class="sk-bounce-dot"></div>
+  </div> -->
+
+        <!-- More spinner examples at https://github.com/tobiasahlin/SpinKit/blob/master/examples.html -->
+    </div>
+
+    <!-- Header Layout -->
+    <div class="mdk-header-layout js-mdk-header-layout">
+
+        <!-- Header -->
+
+        <div id="header" class="mdk-header js-mdk-header mb-0" data-fixed data-effects="waterfall">
+            <div class="mdk-header__content">
+
+                <div class="navbar navbar-expand navbar-light bg-white border-bottom" id="default-navbar" data-primary>
+                    <div class="container page__container">
+
+                        <!-- Navbar Brand -->
+                        <a href="/" class="navbar-brand mr-16pt">
+
+                            <span class="avatar avatar-sm navbar-brand-icon mr-0 mr-lg-8pt">
+                                <!-- 
+                                    <span class="avatar-title rounded bg-primary"><img src="../../public/images/illustration/student/128/white.svg"
+                                             alt="logo"
+                                             class="img-fluid" /></span> -->
+
+                            </span>
+
+                            <span class="d-none d-lg-block">ExamByte</span>
+                        </a>
+
+                        <!-- Navbar toggler -->
+                        <button class="navbar-toggler w-auto mr-16pt d-block rounded-0" type="button" data-toggle="sidebar">
+                            <span class="material-icons">short_text</span>
+                        </button>
+
+                        <ul class="nav navbar-nav d-none d-sm-flex flex justify-content-start ml-8pt">
+                            <li class="nav-item">
+                                <a href="/" class="nav-link">Home</a>
+                            </li>
+
+                        </ul>
+
+                        <form class="search-form form-control-rounded navbar-search d-none d-lg-flex mr-16pt" action="index.html" style="max-width: 230px">
+                            <button class="btn" type="submit"><i class="material-icons">search</i></button>
+                            <input type="text" class="form-control" placeholder="Search ...">
+                        </form>
+
+                        <ul class="nav navbar-nav ml-auto mr-0">
+                            <li class="nav-item">
+                                <a href="/login" class="nav-link" data-toggle="tooltip" data-title="Login" data-placement="bottom" data-boundary="window"><i
+                                        class="material-icons">lock_open</i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/register" class="btn btn-outline-secondary">Get Started</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- // END Header -->
+
+        <!-- Header Layout Content -->
+        <div class="mdk-header-layout__content page-content ">
+
+            <div class="page-section bg-alt border-bottom-2">
+                <div class="container page__container">
+
+                    <div class="d-flex flex-column flex-lg-row align-items-center">
+                        <div class="d-flex flex-column flex-md-row align-items-center align-items-md-start flex mb-16pt mb-lg-0 text-center text-md-left">
+                            <!-- <div class="avatar overlay overlay--primary mb-16pt mb-md-0 mr-md-16pt">
+                                    <img src="../../public/images/paths/sketch_40x40@2x.png"
+                                         class="avatar-img rounded"
+                                         alt="lesson">
+                                    <div class="overlay__content"></div>
+                                </div> -->
+                            <div class="flex">
+                                <h1 class="h2 measure-lead-max mb-16pt">
+                                    <%= article.title %>
+                                </h1>
+                                <div class="d-flex align-items-center">
+                                    <a href="#" class="avatar avatar-sm mr-12pt">
+                                        <img src="/Theme/images/people/50/guy-6.jpg" alt="author" class="avatar-img rounded-circle">
+                                    </a>
+                                    <div class="mr-16pt">
+                                        <a href="#" class="card-title">
+                                            <%= article.createdBy.name %>
+                                        </a>
+                                        <div class="d-flex align-items-center">
+                                            <small class="text-50 mr-2">
+                                                <%= article.createdAt.toLocaleDateString() %>
+                                            </small>
+                                            <a href="" class="text-50"><small>Liked</small></a>
+                                        </div>
+                                    </div>
+                                    <div class="buttons">
+                                        <div>
+                                            <!-- have to insert here  -->
+
+                                            <!-- <%= user.id %> -->
+
+
+
+                                            <!-- <% if( !locals.unauthorised || article.likes.includes(user._id) ){ %>
+                                                <a href="" class="text-50 d-flex align-items-center text-decoration-0" onclick="like_func(event);" class="like-btn" data-post-id="<%= article.id %>" class="left_div__like" id="like_btn">
+                                                    <i class="material-icons icon--left red-color">favorite</i> </a>
+                                                <span id="likes-count-<%= article.id %>"><%= article.likes.length %> </span>
+                                        </div>
+                                        <% } else { %>
+                                            <div>
+                                                <a href="" class="text-50 d-flex align-items-center text-decoration-0" onclick="like_func(event);" class="unlike-btn" data-post-id="<%= article.id %>" class="left_div__like" id="like_btn">
+                                                    <i class="material-icons icon--left">favorite_border</i> </a>
+                                                <span id="likes-count-<%= article.id %>"> <%= article.likes.length %></span>
+                                            </div>
+                                            <% } %> -->
+                                            <% if(article.likes.includes(user._id)) { %>
+                                                <div class="mb-3">
+                                                    <button class="like-btn" onclick="like_func(event);" data-post-id="<%= article.id %>" class="left_div__like" id="like_btn"> Unlike</button>
+                                                    <span id="likes-count-<%= article.id %>"><%= article.likes.length %></span>
+                                                </div>
+                                                <% } else { %>
+                                                    <div>
+
+                                                        <button class="unlike-btn" onclick="like_func(event);" data-post-id="<%= article.id %>" class="left_div__like" id="like_btn">Like</button>
+                                                        <span id="likes-count-<%= article.id %>"><%= article.likes.length %> </span>
+                                                    </div>
+                                                    <% } %>
+
+
+                                                        <% if(user.bookmarks.includes(article._id)) { %>
+                                                            <div>
+
+                                                                <button class="save-btn" onclick="save_func(event);" data-post-id="<%= article.id %>" class="left_div__save" id="save_btn">
+                                                                Unsave
+                                                            </button>
+                                                            </div>
+                                                            <% } else { %>
+                                                                <div>
+
+                                                                    <button class="unsave-btn" onclick="save_func(event);" data-post-id="<%= article.id %>" class="left_div__save" id="save_btn">
+                                                                    Save </button>
+                                                                </div>
+                                                                <% } %>
+
+
+                                                                    <!-- <% if(!locals.unauthorised || user.bookmarks.includes(article._id)) { %>
+                                                            <div>
+                                                                <a href="" class="text-50 d-flex align-items-center text-decoration-0" class="save-btn" onclick="save_func(event);" data-post-id="<%= article.id %>" class="left_div__save" id="save_btn"><i class="material-icons icon--left black-color">bookmark</i></a>
+                                                            </div>
+                                                            <% } else { %>
+                                                                <div>
+                                                                    <a href="" class="text-50 d-flex align-items-center text-decoration-0" class="unsave-btn" onclick="save_func(event);" data-post-id="<%= article.id %>" class="left_div__save" id="save_btn"><i class="material-icons icon--left">bookmark_border</i></a>
+                                                                </div>
+                                                                <% } %> -->
+
+
+                                                                    <!-- till here  -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class=" ml-lg-16pt">
+                            <a href="/createBlog" class="btn btn-light">Create Blog</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="page-section border-bottom-2">
+                <div class="container page__container">
+
+                    <div class="row">
+                        <div class="col-lg-8">
+
+                            <div class="mb-24pt">
+                                <a href="" class="chip chip-outline-secondary">
+                                    <%=article.markdown%>
+                                </a>
+                            </div>
+
+                            <div class="d-flex flex-column flex-md-row align-items-md-center mb-16pt">
+                                <div class="mb-16pt mb-md-0 mr-md-16pt">
+                                    <div class="rounded p-relative o-hidden overlay overlay--primary">
+                                        <img class="img-fluid rounded" src="/uploads/<%= article.image[0].filename %>" alt="image">
+                                        <div class="overlay__content"></div>
+                                    </div>
+                                </div>
+                                <div class="flex">
+                                    <p class="lead measure-paragraph-max">
+                                        <%=article.description%>
+                                    </p>
+                                </div>
+                            </div>
+
+
+
+                            <pre class="text-50 measure-paragraph-max mb-24pt blog_pre"><%- article.blogContent %></pre>
+
+
+                            <!-- comment section of template -->
+
+
+                            <div class="measure-lead-max">
+
+                                <div class="page-separator">
+                                    <div class="page-separator__text">Comments</div>
+                                </div>
+
+                                <div class="d-flex mb-24pt">
+                                    <a href="" class="avatar avatar-sm mr-12pt">
+                                        <span class="avatar-title rounded-circle"><%= user.name %></span>
+                                    </a>
+                                    <div class="flex">
+                                        <form class="replies" id="form">
+                                            <div class="form-group">
+                                                <label for="comment" class="form-label">Your comment</label>
+                                                <textarea class="form-control" name="comment" id="comment" rows="3" placeholder="Type here to leave a comment ..."></textarea>
+                                            </div>
+                                            <button class="btn btn-outline-secondary" type="submit" value="Submit" id="submit-btn" data-post-id="<%= article.id %>">Post comment</button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="pt-3 mb-24pt">
+                                    <h4>2 Comments</h4>
+                                    <div class="d-flex mb-3">
+                                        <a href="" class="avatar avatar-sm mr-12pt"> -->
+                                <!-- <img src="../../public/images/people/256/256_rsz_karl-s-973833-unsplash.jpg" alt="people" class="avatar-img rounded-circle"> -->
+                                <!-- <span class="avatar-title rounded-circle">JF</span>
+                                        </a>
+                                        <div class="flex">
+                                            <a href="" class="text-body"><strong>Joseph S.
+                                                Ferland</strong></a><br>
+                                            <p class="mt-1 text-70">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero neque magnam modi corrupti in aliquid odit eligendi pariatur! Ad consequatur illo voluptates, dignissimos tenetur odit magni excepturi! Nesciunt,
+                                                fuga, vel.
+                                            </p>
+                                            <div class="d-flex align-items-center">
+                                                <small class="text-50 mr-2">27 min ago</small>
+                                                <a href="" class="text-50"><small>Liked</small></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="ml-sm-32pt mt-3 card p-3">
+                                        <div class="d-flex">
+                                            <a href="#" class="avatar avatar-sm mr-12pt"> -->
+                                <!-- <img src="../../public/images/people/110/guy-6.jpg" alt="Guy" class="avatar-img rounded-circle"> -->
+                                <!-- <span class="avatar-title rounded-circle">FM</span>
+                                            </a>
+                                            <div class="flex">
+                                                <div class="d-flex align-items-center">
+                                                    <a href="" class="text-body"><strong>FrontendMatter</strong></a>
+                                                    <small class="ml-auto text-muted">just now</small>
+                                                </div>
+                                                <p class="mt-1 text-70">Hi Joseph,<br> Thank you for purchasing our course! <br><br>Please have a look at the charts library documentation <a href="#">here</a> and follow the instructions.
+                                                </p>
+
+                                                <div class="d-flex align-items-center">
+                                                    <a href="" class="text-50 d-flex align-items-center text-decoration-0"><i
+                                                        class="material-icons mr-1"
+                                                        style="font-size: inherit;">favorite_border</i>
+                                                    3</a>
+                                                    <a href="" class="text-50 d-flex align-items-center text-decoration-0 ml-3"><i
+                                                        class="material-icons mr-1"
+                                                        style="font-size: inherit;">thumb_up</i> 13</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <a href="" class="btn btn-block btn-light">Load more ...</a>
+                                </div> -->
+                            </div>
+
+                            <!-- ends here -->
+
+
+
+                        </div>
+                        <div class="col-lg-4">
+
+                            <div class="page-separator">
+                                <div class="page-separator__text">Author</div>
+                            </div>
+
+                            <div class="media align-items-center mb-16pt">
+                                <span class="media-left mr-16pt">
+                                <img src="/Theme/images/people/50/guy-6.jpg" width="40" alt="avatar"
+                                    class="rounded-circle">
+                            </span>
+                                <div class="media-body">
+                                    <a class="card-title m-0" href="teacher-profile.html">
+                                        <%= article.createdBy.name %>
+                                    </a>
+                                    <p class="text-50 lh-1 mb-0">Instructor</p>
+                                </div>
+                            </div>
+                            <p class="text-70">Fueled by my passion for understanding the nuances of cross-cultural advertising, I consider myself a forever student, eager to both build on my academic foundations in psychology and sociology and stay in tune with the latest
+                                digital marketing strategies through continued coursework.</p>
+
+                            <a href="teacher-profile.html" class="btn btn-white mb-24pt">Follow</a>
+
+                            <div class="page-separator">
+                                <div class="page-separator__text">Recommended</div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="page-section bg-alt">
+                <div class="container page__container">
+
+                    <div class="page-separator">
+                        <div class="page-separator__text">Feedback</div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-sm-6 col-md-4">
+
+                            <div class="card card-feedback card-body">
+                                <blockquote class="blockquote mb-0">
+                                    <p class="text-70 small mb-0">A wonderful course on how to start. Eddie beautifully conveys all essentials of a becoming a good Angular developer. Very glad to have taken this course. Thank you Eddie Bryan.</p>
+                                </blockquote>
+                            </div>
+                            <div class="media ml-12pt">
+                                <div class="media-left mr-12pt">
+                                    <a href="student-profile.html" class="avatar avatar-sm">
+                                        <!-- <img src="public/images/people/110/guy-.jpg" width="40" alt="avatar" class="rounded-circle"> -->
+                                        <span class="avatar-title rounded-circle">UK</span>
+                                    </a>
+                                </div>
+                                <div class="media-body media-middle">
+                                    <a href="student-profile.html" class="card-title">Umberto Kass</a>
+                                    <div class="rating mt-4pt">
+                                        <span class="rating__item"><span class="material-icons">star</span></span>
+                                        <span class="rating__item"><span class="material-icons">star</span></span>
+                                        <span class="rating__item"><span class="material-icons">star</span></span>
+                                        <span class="rating__item"><span class="material-icons">star</span></span>
+                                        <span class="rating__item"><span class="material-icons">star_border</span></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-6 col-md-4">
+
+                            <div class="card card-feedback card-body">
+                                <blockquote class="blockquote mb-0">
+                                    <p class="text-70 small mb-0">A wonderful course on how to start. Eddie beautifully conveys all essentials of a becoming a good Angular developer. Very glad to have taken this course. Thank you Eddie Bryan.</p>
+                                </blockquote>
+                            </div>
+                            <div class="media ml-12pt">
+                                <div class="media-left mr-12pt">
+                                    <a href="student-profile.html" class="avatar avatar-sm">
+                                        <!-- <img src="public/images/people/110/guy-.jpg" width="40" alt="avatar" class="rounded-circle"> -->
+                                        <span class="avatar-title rounded-circle">UK</span>
+                                    </a>
+                                </div>
+                                <div class="media-body media-middle">
+                                    <a href="student-profile.html" class="card-title">Umberto Kass</a>
+                                    <div class="rating mt-4pt">
+                                        <span class="rating__item"><span class="material-icons">star</span></span>
+                                        <span class="rating__item"><span class="material-icons">star</span></span>
+                                        <span class="rating__item"><span class="material-icons">star</span></span>
+                                        <span class="rating__item"><span class="material-icons">star</span></span>
+                                        <span class="rating__item"><span class="material-icons">star_border</span></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-6 col-md-4">
+
+                            <div class="card card-feedback card-body">
+                                <blockquote class="blockquote mb-0">
+                                    <p class="text-70 small mb-0">A wonderful course on how to start. Eddie beautifully conveys all essentials of a becoming a good Angular developer. Very glad to have taken this course. Thank you Eddie Bryan.</p>
+                                </blockquote>
+                            </div>
+                            <div class="media ml-12pt">
+                                <div class="media-left mr-12pt">
+                                    <a href="student-profile.html" class="avatar avatar-sm">
+                                        <!-- <img src="public/images/people/110/guy-.jpg" width="40" alt="avatar" class="rounded-circle"> -->
+                                        <span class="avatar-title rounded-circle">UK</span>
+                                    </a>
+                                </div>
+                                <div class="media-body media-middle">
+                                    <a href="student-profile.html" class="card-title">Umberto Kass</a>
+                                    <div class="rating mt-4pt">
+                                        <span class="rating__item"><span class="material-icons">star</span></span>
+                                        <span class="rating__item"><span class="material-icons">star</span></span>
+                                        <span class="rating__item"><span class="material-icons">star</span></span>
+                                        <span class="rating__item"><span class="material-icons">star</span></span>
+                                        <span class="rating__item"><span class="material-icons">star_border</span></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- // END Header Layout Content -->
+
+        <!-- Footer -->
+
+        <div class="bg-dark border-top-2 mt-auto">
+            <div class="container page__container page-section d-flex flex-column">
+                <p class="text-white-70 brand mb-24pt">
+                    <!-- <img class="brand-icon"
+                             src="../../public/images/logo/black-70@2x.png"
+                             width="30"
+                             alt="Luma"> Luma -->ExamByte
+                </p>
+                <p class="measure-lead-max text-white-50 small mr-8pt">Exambyte provides innovative and easy-to-understand learning material from the best IIT-JEE & NEET coaching experts and veterans in the industry.</p>
+                <p class="mb-8pt d-flex">
+                    <a href="#" class="text-white-70 text-underline mr-8pt small">Terms</a>
+                    <a href="#" class="text-white-70 text-underline small">Privacy policy</a>
+                </p>
+                <p class="text-white-50 small mt-n1 mb-0">Copyright 2022 &copy; All rights reserved.</p>
+            </div>
+        </div>
+
+        <!-- // END Footer -->
+
+    </div>
+    <!-- // END Header Layout -->
+
+    <!-- Drawer -->
+
+    <div class="mdk-drawer js-mdk-drawer" id="default-drawer">
+        <div class="mdk-drawer__content">
+            <div class="sidebar sidebar-light sidebar-light-dodger-blue sidebar-left" data-perfect-scrollbar>
+
+
+                <!-- Sidebar Content -->
+
+                <a href="/" class="sidebar-brand ">
+                    <!-- <img class="sidebar-brand-icon" src="../../public/images/illustration/student/128/white.svg" alt="Luma"> -->
+
+                    <span class="avatar avatar-xl sidebar-brand-icon h-auto">
+
+                        <!-- <span class="avatar-title rounded bg-primary"><img src="../../public/images/illustration/student/128/white.svg"
+                                     class="img-fluid"
+                                     alt="logo" /></span> -->
+
+                    </span>
+
+                    <span>ExamByte</span>
+                </a>
+
+                <div class="sidebar-heading">Applications</div>
+                <ul class="sidebar-menu">
+
+                    <li class="sidebar-menu-item">
+                        <a class="sidebar-menu-button js-sidebar-collapse" data-toggle="collapse" href="#student_menu">
+                            <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">school</span> Student
+                            <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                        </a>
+                        <ul class="sidebar-submenu collapse sm-indent" id="student_menu">
+
+                            <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button" href="index.html">
+
+                                    <span class="sidebar-menu-text">Home</span>
+                                </a>
+                            </li>
+
+                            <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button" href="student-dashboard.html">
+
+                                    <span class="sidebar-menu-text">Student Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button" href="student-my-courses.html">
+
+                                    <span class="sidebar-menu-text">My Courses</span>
+                                </a>
+                            </li>
+
+
+
+                            <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button" href="student-take-quiz.html">
+
+                                    <span class="sidebar-menu-text">Take Quiz</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button" href="student-quiz-results.html">
+
+                                    <span class="sidebar-menu-text">My Quizzes</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button" href="student-quiz-result-details.html">
+
+                                    <span class="sidebar-menu-text">Quiz Result</span>
+                                </a>
+                            </li>
+
+
+                        </ul>
+                    </li>
+
+
+
+
+
+                    <li class="sidebar-menu-item">
+                        <a class="sidebar-menu-button" data-toggle="collapse" href="#account_menu">
+                            <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">account_box</span> Account
+                            <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                        </a>
+                        <ul class="sidebar-submenu collapse sm-indent" id="account_menu">
+
+                            <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button" href="login.html">
+                                    <span class="sidebar-menu-text">Login</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button" href="signup.html">
+                                    <span class="sidebar-menu-text">Signup</span>
+                                </a>
+                            </li>
+
+                            <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button" href="reset-password.html">
+                                    <span class="sidebar-menu-text">Reset Password</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button" href="change-password.html">
+                                    <span class="sidebar-menu-text">Change Password</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button" href="edit-account.html">
+                                    <span class="sidebar-menu-text">Edit Account</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button" href="edit-account-profile.html">
+                                    <span class="sidebar-menu-text">Profile &amp; Privacy</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li class="sidebar-menu-item active open">
+                        <a class="sidebar-menu-button" data-toggle="collapse" href="#community_menu">
+                            <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">people_outline</span> Community
+                            <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                        </a>
+                        <ul class="sidebar-submenu collapse show sm-indent" id="community_menu">
+
+                            <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button" href="student-profile.html">
+
+                                    <span class="sidebar-menu-text">Student Profile</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button" href="teacher-profile.html">
+
+                                    <span class="sidebar-menu-text">Teacher Profile</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button" href="blog.html">
+
+                                    <span class="sidebar-menu-text">Blog</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-menu-item active">
+                                <a class="sidebar-menu-button" href="blog-post.html">
+
+                                    <span class="sidebar-menu-text">Blog Post</span>
+                                </a>
+                            </li>
+
+
+
+            </div>
+        </div>
+
+        <!-- // END Drawer -->
+
+        <!-- jQuery -->
+        <script src="/Theme/vendor/jquery.min.js"></script>
+
+        <!-- Bootstrap -->
+        <script src="/Theme/vendor/popper.min.js"></script>
+        <script src="/Theme/vendor/bootstrap.min.js"></script>
+
+        <!-- Perfect Scrollbar -->
+        <script src="/Theme/vendor/perfect-scrollbar.min.js"></script>
+
+        <!-- DOM Factory -->
+        <script src="/Theme/vendor/dom-factory.js"></script>
+
+        <!-- MDK -->
+        <script src="/Theme/vendor/material-design-kit.js"></script>
+
+        <!-- App JS -->
+        <script src="/Theme/js/app.js"></script>
+
+        <!-- Preloader -->
+        <script src="/Theme/js/preloader.js"></script>
+
+        <script>
+            // for like btn
+            const like = document.getElementById('like_btn');
+            var toggleButtonText = {
+                Like: function(button) {
+                    button.textContent = "Unlike";
+                },
+                Unlike: function(button) {
+                    button.textContent = "Like";
+                }
+            };
+            var updatePostStats = {
+                Like: function(postId) {
+                    document.querySelector('#likes-count-' + postId).textContent++;
+                },
+                Unlike: function(postId) {
+                    document.querySelector('#likes-count-' + postId).textContent--;
+                }
+            };
+            const like_func = async(event) => {
+                event.preventDefault();
+                var postId = event.target.dataset.postId;
+                var action = event.target.textContent.trim();
+                // console.log(action)
+                toggleButtonText[action](event.target);
+                updatePostStats[action](postId);
+                try {
+                    const liked = await fetch(`/like/${postId}`, {
+                        method: 'PUT',
+                        headers: {
+                            "Content-Type": "application/json",
+                        }
+                    })
+                    console.log(liked.json())
+                } catch (err) {
+                    console.log('err')
+                }
+            };
+            // for save btn               
+            var toggleButtonTextSave = {
+                Save: function(button) {
+                    button.textContent = "Unsave";
+                },
+                Unsave: function(button) {
+                    button.textContent = "Save";
+                }
+            };
+            const save_func = async(event) => {
+                event.preventDefault();
+                var postId = event.target.dataset.postId;
+                console.log(postId)
+                    // we can also implement that a post a alread saved in a user collection or not with action below
+                var action = event.target.textContent.trim();
+                toggleButtonTextSave[action](event.target);
+                try {
+                    const saved = await fetch(`/bookmark/${postId}`, {
+                        method: 'PUT',
+                        headers: {
+                            "Content-Type": "application/json",
+                        }
+                    })
+                    const data = await saved;
+                    // console.log(data)
+                    // location.assign(data.url);
+                } catch (err) {
+                    console.log(err)
+                }
+            };
+
+
+            // comments
+            const formFields = document.getElementById('form');
+
+            // console.log(formFields)
+            formFields.addEventListener('submit', async(e) => {
+                // e.preventDefault();
+
+                const postId = document.getElementById("postId").innerText.trim()
+
+                const data = formFields.comment.value;
+
+                // console.log(postId)
+                // console.log(data)
+                try {
+                    const commented = await fetch(`/comment/${postId}`, {
+
+                            method: 'PUT',
+
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                data
+                            }),
+                        })
+                        // console.log(commented)
+                    location.reload()
+                } catch (err) {
+                    console.log('err')
+                }
+            });
+        </script>
+
+</body>
+
+</html>

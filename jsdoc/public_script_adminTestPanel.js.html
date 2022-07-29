@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: public/script/adminTestPanel.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: public/script/adminTestPanel.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const form_field = document.getElementById('form-field');
+const start_quiz = document.getElementById('start-quiz');
+
+const questions = document.getElementById('qtn');
+const option_1 = document.getElementById('option1');
+const option_2 = document.getElementById('option2');
+const option_3 = document.getElementById('option3');
+const option_4 = document.getElementById('option4');
+const submit = document.getElementById('submit');
+const answers = document.querySelectorAll('.answer');
+const showScore = document.querySelector('#showScore');
+
+let ID = "";
+
+
+let obj1 = {
+    question: this.question,
+    option1: this.option1,
+    option2: this.option2,
+    option3: this.option3,
+    option4: this.option4,
+    answer: this.answer
+}
+
+const quiz_data_section = document.getElementsByClassName('quiz-data');
+
+let no_of_qtn = 0;
+document.getElementById('no-of-qtn').innerHTML =no_of_qtn;
+let questionArray = [];
+
+
+form_field.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    ++no_of_qtn;
+    console.log(no_of_qtn);
+    document.getElementById('no-of-qtn').innerHTML = no_of_qtn;
+    let question = form_field.question.value;
+    let option1 = form_field.option1.value;
+    let option2 = form_field.option2.value;
+    let option3 = form_field.option3.value;
+    let option4 = form_field.option4.value;
+    let answer = form_field.answer.value;
+    obj1 = { question, option1, option2,option3,option4, answer };
+    questionArray.push(obj1);
+    console.log(questionArray);
+    localStorage.setItem("questionData", JSON.stringify(questionArray));
+    form_field.reset();
+});
+
+const quiz_area = document.getElementById('quiz-area');
+
+
+
+const quiz_data = JSON.parse(localStorage.getItem("questionData", questionArray));
+let questionCount = 0;
+let score = 0;
+
+const startQuiz = () => {
+    const question_data = quiz_data[questionCount];
+    questions.innerText = question_data.question;
+    option_1.innerText = question_data.option1;
+    option_2.innerText = question_data.option2;
+    start_quiz.style.display = "block";
+}
+
+function getCheckAnswer() {
+    let answer;
+    answers.forEach((currentAnswer) => {
+        if (currentAnswer.checked) {
+            answer = currentAnswer.id;
+        }
+
+    });
+    return answer;
+}
+
+const deSelectOptions = () => {
+    answers.forEach((currentAnswer) => {
+        currentAnswer.checked = false;
+    })
+}
+
+
+submit.addEventListener('click', () => {
+    const checkAnswer = getCheckAnswer();
+
+    if (checkAnswer === quiz_data[questionCount].answer) {
+        score++;
+        console.log(score);
+    };
+
+    questionCount += 1;
+    if (questionCount &lt; quiz_data.length) {
+        deSelectOptions();
+        startQuiz();
+    }
+    else {
+        showScore.innerHTML = `
+           &lt;h3> Your Score:  ${score}/${quiz_data.length} &lt;/h3>
+           &lt;br>&lt;br>
+           &lt;h3> Correct: ${score}&amp;nbsp&amp;nbsp&amp;nbsp&amp;nbspIncorrect: ${quiz_data.length - score} &lt;/h3>
+           &lt;button class="btn3" onclick="location.reload()">Restart&lt;/button>
+        `;
+
+        // showScore.classList.remove('scoreArea');
+    }
+});
+
+
+const saveQuiz =async(ID) =>{
+    let noOfQestions = no_of_qtn;
+    let questions =JSON.parse(localStorage.getItem("questionData", questionArray));
+    let title = document.getElementById("title").value;
+    console.log(questions);
+    try {
+        const res = await fetch(`/saveTest/${ID}`, {
+            method: 'POST',
+            body: JSON.stringify({
+                title,
+                noOfQestions,
+                questions
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        localStorage.removeItem("questionData");
+        const data = await res.json();
+        if(data){
+            console.log(data);
+            document.getElementById('show-quiz-link').style.display ="block";
+            document.getElementById('link').value = `http://localhost:8000/mcq/${data}`;
+            document.getElementById('direct-link').innerHTML=`
+                &lt;a href='http://localhost:8000/mcq/${data}' target='_blank'>&lt;b>click here to go to test&lt;/b>&lt;/a>
+            
+            `
+        }
+    }catch (err) {
+        console.log(err);
+    }
+}
+
+
+
+
+
+const getAdminData = async() => {
+    try {
+        /**
+         * @method GET
+         * @headers {Object}
+         */
+        const res = await fetch('/getNormalAdminDetails', {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json'
+            }
+        });
+
+        const data = await res.json();
+        ID = data._id;
+        document.getElementById('save-quiz-data').innerHTML=`
+            &lt;button class="btn1" onclick="saveQuiz(ID)">&lt;a href="#show-quiz-link" style="text-decoration: none; color:white;">Create Quiz&lt;/a>&lt;/button>
+        `
+    }catch (err) {
+        console.log(err);
+    }
+};
+
+getAdminData();</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-addBlog_get.html">addBlog_get</a></li><li><a href="module-addBlog_post.html">addBlog_post</a></li><li><a href="module-admin_details_get.html">admin_details_get</a></li><li><a href="module-adminProfile_get.html">adminProfile_get</a></li><li><a href="module-create_admin.html">create_admin</a></li><li><a href="module-dashboard_get.html">dashboard_get</a></li><li><a href="module-delete_admin_data.html">delete_admin_data</a></li><li><a href="module-deleteBlog_delete.html">deleteBlog_delete</a></li><li><a href="module-edit_admin_data_get.html">edit_admin_data_get</a></li><li><a href="module-get_login.html">get/login</a></li><li><a href="module-get_register.html">get/register</a></li><li><a href="module-get_admin_data.html">get_admin_data</a></li><li><a href="module-get_superadmin_panel.html">get_superadmin_panel</a></li><li><a href="module-getAllDocuments.html">getAllDocuments</a></li><li><a href="module-loginAdmin_post.html">loginAdmin_post</a></li><li><a href="module-normal_admin_router.html">normal_admin_router</a></li><li><a href="module-normal_user_home.html">normal_user_home</a></li><li><a href="module-normal_user_login_post.html">normal_user_login_post</a></li><li><a href="module-normal_user_login_signup.html">normal_user_login_signup</a></li><li><a href="module-normal_user_logout_get.html">normal_user_logout_get</a></li><li><a href="module-register_normal_user_post.html">register_normal_user_post</a></li><li><a href="module-saveTest_post.html">saveTest_post</a></li><li><a href="module-showAllBlogs_get.html">showAllBlogs_get</a></li><li><a href="module-showBlog_get.html">showBlog_get</a></li><li><a href="module-super_Admin_Routes.html">super_Admin_Routes</a></li><li><a href="module-SuperAdmin_login_post.html">SuperAdmin_login_post</a></li><li><a href="module-superAdmin_logout_get.html">superAdmin_logout_get</a></li><li><a href="module-SuperAdmin_register_post.html">SuperAdmin_register_post</a></li><li><a href="module-test_module.html">test_module</a></li><li><a href="module-testAdmin_get.html">testAdmin_get</a></li><li><a href="module-testData_get.html">testData_get</a></li><li><a href="module-testSlug_get.html">testSlug_get</a></li><li><a href="module-update_admin_data_put.html">update_admin_data_put</a></li><li><a href="module-updateBlog_put.html">updateBlog_put</a></li><li>{mongoose.module:model}</li></ul><h3>Global</h3><ul><li><a href="global.html#adminPanel">adminPanel</a></li><li><a href="global.html#adminSchema">adminSchema</a></li><li><a href="global.html#authRoute">authRoute</a></li><li><a href="global.html#bcrypt">bcrypt</a></li><li><a href="global.html#bodyParser">bodyParser</a></li><li><a href="global.html#cookieParser">cookieParser</a></li><li><a href="global.html#DELETE">DELETE</a></li><li><a href="global.html#deleteAdmin">deleteAdmin</a></li><li><a href="global.html#deleteBlog">deleteBlog</a></li><li><a href="global.html#displayCreateBlogSection">displayCreateBlogSection</a></li><li><a href="global.html#displayData">displayData</a></li><li><a href="global.html#displayShowBlogSection">displayShowBlogSection</a></li><li><a href="global.html#dotenv">dotenv</a></li><li><a href="global.html#editAdmin">editAdmin</a></li><li><a href="global.html#editBlog">editBlog</a></li><li><a href="global.html#express">express</a></li><li><a href="global.html#fillInputfields">fillInputfields</a></li><li><a href="global.html#formFields">formFields</a></li><li><a href="global.html#GET">GET</a></li><li><a href="global.html#getAdminData">getAdminData</a></li><li><a href="global.html#getAdminId">getAdminId</a></li><li><a href="global.html#getAllData">getAllData</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#mongoose">mongoose</a></li><li><a href="global.html#normalAdminSchema">normalAdminSchema</a></li><li><a href="global.html#path">path</a></li><li><a href="global.html#POST">POST</a></li><li><a href="global.html#postBlog">postBlog</a></li><li><a href="global.html#PUT">PUT</a></li><li><a href="global.html#redirectSignup">redirectSignup</a></li><li><a href="global.html#routes">routes</a></li><li><a href="global.html#SuperAdminSchema">SuperAdminSchema</a></li><li><a href="global.html#userSchema">userSchema</a></li><li>{<a href="global.html#POST">POST</a>}</li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue Mar 22 2022 20:50:39 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

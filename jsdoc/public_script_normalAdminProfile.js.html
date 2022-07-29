@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: public/script/normalAdminProfile.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: public/script/normalAdminProfile.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const displayAdminAllBlogsSection = document.getElementById('show-admin-all-blogs');
+const editBlogSection = document.getElementById('edit-blog-section');
+const formFields = document.querySelector('form');
+const show_admin_all_tests_section = document.getElementById('show-admin-all-tests');
+
+
+//Function to redirect admin to add blog Section
+
+/**
+ * 
+ * @param {String} id 
+ */
+const displayCreateBlogSection = (id) => {
+    location.assign(`/addBlog/${id}`);
+}
+
+
+
+
+
+const displayShowTestSection = async (id) => {
+    try {
+        const res = await fetch(`/getAdminTest/${id}`, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json'
+            }
+        });
+        const data = await res.json();
+        if (data) {
+            editBlogSection.style.display = 'none';
+            displayAdminAllBlogsSection.style.display = 'none';
+            let display = window.getComputedStyle(show_admin_all_tests_section).display;
+            if (display === 'none') {
+                show_admin_all_tests_section.innerHTML="";
+                show_admin_all_tests_section.style.display = 'flex';
+                for (let i = 0; i &lt; data.length; i++) {
+                    show_admin_all_tests_section.innerHTML += `
+                        &lt;div class="test-detail">
+                            &lt;div class="admin-test-title">
+                                &lt;p>${data[i].title}&lt;/p>
+                            &lt;/div>
+                            &lt;div class="admin-test-date">
+                                &lt;p>Created at:&amp;nbsp${data[i].createdAt}&lt;/p>
+                            &lt;/div>
+                            &lt;div class="admin-test-questionCount">
+                                &lt;p>No. Of Questions:&amp;nbsp${data[i].noOfQestions}&lt;/p>
+                            &lt;/div>
+                            &lt;div class="admin-test-link">
+                                &lt;a href="http://localhost:2000/mcq/${data[i].slug}" target="_blank">Link to Test&lt;/a>
+                            &lt;/div>
+                            &lt;div class="admin-test-actions">
+                                &lt;button onclick="deleteTest('${data[i]._id}')">Delete&lt;/button>
+                            &lt;/div>
+                        &lt;/div>
+
+                    `
+                }
+
+            }
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+
+const deleteTest = async (id) => {
+    try {
+        const res = await fetch(`/deleteTest/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'contentType': 'application/json'
+            }
+        });
+        const data = await res.json();
+
+        if (data.message === 'Test deleted') {
+            alert('Test deleted successfully');
+            location.assign('/normalAdminProfile');
+        }
+        else {
+            alert("Can't perform the action");
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+
+
+
+//Function to Display all the Blogs creted by user
+/**
+ * 
+ * @param {String} id
+ * @async 
+ */
+const displayShowBlogSection = async (id) => {
+
+    try {
+        /**
+         * @method GET
+         * @headers {Object}
+         */
+        const res = await fetch(`/showAdminAllBlogs/${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json'
+            }
+        });
+
+        const data = await res.json();
+        if (data) {
+            show_admin_all_tests_section.style.display = 'none';
+            editBlogSection.style.display = 'none';
+            let display = window.getComputedStyle(displayAdminAllBlogsSection).display;
+            if (display === 'none') {
+                displayAdminAllBlogsSection.innerHTML="";
+                displayAdminAllBlogsSection.style.display = 'flex';
+                //Displaying data dynamically
+                for (let i = 0; i &lt; data.length; i++) {
+                    let blogData = `
+                            &lt;div id="blog-data-section" class="blog-data-section-class">
+                                &lt;div class="blog-content">
+                                    &lt;h2>${data[i].title}&lt;/h2>
+                                    &lt;p>${data[i].description.substring(0, 100)}....&lt;/p>
+                                &lt;/div>
+                                &lt;div class="blog-actions">
+                                    &lt;div class="blog-actions-edit">
+                                        &lt;a href="javascript:;" class='fas fa-pen' onclick="editBlog('${id}','${data[i]._id}','${i}')">&amp;nbspEdit&lt;/a>
+                                    &lt;/div>
+                                    &lt;div class="blog-actions-delete">
+                                        &lt;a href="javascript:;" class='fas fa-trash' onclick="deleteBlog('${data[i]._id}')">&amp;nbspDelete&lt;/a>
+                                    &lt;/div>
+                                &lt;/div>
+                            &lt;/div>
+                        `
+                    displayAdminAllBlogsSection.innerHTML += blogData;
+                }
+            }
+
+        }
+    } catch (err) {
+        console.log(err);
+    }
+
+}
+
+//Function to get Admin data and display it dinamically
+/**
+ * @async 
+ */
+const getAdminData = async () => {
+    try {
+        /**
+         * @method GET
+         * @headers {Object}
+         */
+        const res = await fetch('/getNormalAdminDetails', {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json'
+            }
+        });
+
+        const data = await res.json();
+
+        if (data) {
+            document.getElementById('name').innerHTML = data.name;
+            document.getElementById('email').innerHTML = data.email;
+            let blogButtons = `
+                &lt;a href="javascript:;" class="fa fa-file-text-o navigation-btns" onclick="displayCreateBlogSection('${data._id}')" >&amp;nbspCreate a new blog&lt;/a>
+                &lt;a href="javascript:;"  class='fas fa-eye navigation-btns' onclick="displayShowBlogSection('${data._id}')">&amp;nbspShow my blogs&lt;/a>
+                &lt;a href="javascript:;" class='fas fa-book-open navigation-btns' onclick="displayShowTestSection('${data._id}')">&amp;nbspMy created Tests&lt;/a>
+            `;
+            document.getElementById('button-section').innerHTML = blogButtons;
+            document.getElementById('nav-link-3').innerHTML = `
+                &lt;a class="nav-link" href="javascript:;" onclick="displayCreateBlogSection('${data._id}')">Create Blog&lt;/a>
+            `
+            displayShowBlogSection(data._id);
+        }
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+getAdminData(); //calling function to display admin data
+
+/**
+ * Function to fill input fields with existing Data
+ * @param {String} adminId 
+ * @param {Number} i 
+ * @async
+ */
+const fillInputfields = async (adminId, i) => {
+    try {
+        const res = await fetch(`/showAdminAllBlogs/${adminId}`, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json'
+            }
+        });
+
+        const data = await res.json();
+        if (data) {
+            console.log(data[i]);
+            formFields.title.value = data[i].title;
+            formFields.description.value = data[i].description;
+            formFields.markdown.value = data[i].markdown;
+            formFields.category.value = data[i].category;
+        }
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+//Function to edit Blog posts
+
+/**
+ * 
+ * @param {String} adminId 
+ * @param {String} blogId 
+ * @param {Number} i 
+ * @async 
+ */
+const editBlog = async (adminId, blogId, i) => {
+    displayAdminAllBlogsSection.style.display = 'none';
+    editBlogSection.style.display = 'block';
+    fillInputfields(adminId, i);
+    formFields.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // get values 
+        const title = formFields.title.value;
+        const description = formFields.description.value;
+        const markdown = formFields.markdown.value;
+        const images = formFields.file.files;
+        const category = formFields.category.value;
+
+
+        try {
+            /**
+             * @method PUT
+             * @body {String}
+             * @headers {Object}
+             */
+            const res = await fetch(`/updateBlog/${blogId}`, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    title,
+                    description,
+                    markdown,
+                    images,
+                    category,
+                }),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+
+            const data = await res.json(); //Getting Response from the server
+            if (data) {
+                alert('blog updated successfully');
+                location.assign('/NormalAdminDashboard');
+            } else {
+                alert('Failed to update blog');
+            }
+
+        } catch (err) {
+            console.log(err);
+        }
+    });
+}
+
+//Function to delete a particular blog
+
+/**
+ * 
+ * @param {String} blogId 
+ * @async 
+ */
+const deleteBlog = async (blogId) => {
+    if (confirm('Are you sure you want to delete this blog ?')) {
+        try {
+            const res = await fetch(`/deleteBlog/${blogId}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const data = await res.json();
+            if (data.message === 'Blog deleted') {
+                alert("Blog deleted successfully!");
+                location.assign('/NormalAdminDashboard');
+            }
+
+        } catch (err) {
+            console.log(err);
+        }
+
+    }
+
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-addBlog_get.html">addBlog_get</a></li><li><a href="module-addBlog_post.html">addBlog_post</a></li><li><a href="module-admin_details_get.html">admin_details_get</a></li><li><a href="module-adminProfile_get.html">adminProfile_get</a></li><li><a href="module-create_admin.html">create_admin</a></li><li><a href="module-dashboard_get.html">dashboard_get</a></li><li><a href="module-delete_admin_data.html">delete_admin_data</a></li><li><a href="module-deleteBlog_delete.html">deleteBlog_delete</a></li><li><a href="module-edit_admin_data_get.html">edit_admin_data_get</a></li><li><a href="module-get_login.html">get/login</a></li><li><a href="module-get_register.html">get/register</a></li><li><a href="module-get_admin_data.html">get_admin_data</a></li><li><a href="module-get_superadmin_panel.html">get_superadmin_panel</a></li><li><a href="module-getAllDocuments.html">getAllDocuments</a></li><li><a href="module-loginAdmin_post.html">loginAdmin_post</a></li><li><a href="module-normal_admin_router.html">normal_admin_router</a></li><li><a href="module-normal_user_home.html">normal_user_home</a></li><li><a href="module-normal_user_login_post.html">normal_user_login_post</a></li><li><a href="module-normal_user_login_signup.html">normal_user_login_signup</a></li><li><a href="module-normal_user_logout_get.html">normal_user_logout_get</a></li><li><a href="module-register_normal_user_post.html">register_normal_user_post</a></li><li><a href="module-saveTest_post.html">saveTest_post</a></li><li><a href="module-showAllBlogs_get.html">showAllBlogs_get</a></li><li><a href="module-showBlog_get.html">showBlog_get</a></li><li><a href="module-super_Admin_Routes.html">super_Admin_Routes</a></li><li><a href="module-SuperAdmin_login_post.html">SuperAdmin_login_post</a></li><li><a href="module-superAdmin_logout_get.html">superAdmin_logout_get</a></li><li><a href="module-SuperAdmin_register_post.html">SuperAdmin_register_post</a></li><li><a href="module-test_module.html">test_module</a></li><li><a href="module-testAdmin_get.html">testAdmin_get</a></li><li><a href="module-testData_get.html">testData_get</a></li><li><a href="module-testSlug_get.html">testSlug_get</a></li><li><a href="module-update_admin_data_put.html">update_admin_data_put</a></li><li><a href="module-updateBlog_put.html">updateBlog_put</a></li><li>{mongoose.module:model}</li></ul><h3>Global</h3><ul><li><a href="global.html#adminPanel">adminPanel</a></li><li><a href="global.html#adminSchema">adminSchema</a></li><li><a href="global.html#authRoute">authRoute</a></li><li><a href="global.html#bcrypt">bcrypt</a></li><li><a href="global.html#bodyParser">bodyParser</a></li><li><a href="global.html#cookieParser">cookieParser</a></li><li><a href="global.html#DELETE">DELETE</a></li><li><a href="global.html#deleteAdmin">deleteAdmin</a></li><li><a href="global.html#deleteBlog">deleteBlog</a></li><li><a href="global.html#displayCreateBlogSection">displayCreateBlogSection</a></li><li><a href="global.html#displayData">displayData</a></li><li><a href="global.html#displayShowBlogSection">displayShowBlogSection</a></li><li><a href="global.html#dotenv">dotenv</a></li><li><a href="global.html#editAdmin">editAdmin</a></li><li><a href="global.html#editBlog">editBlog</a></li><li><a href="global.html#express">express</a></li><li><a href="global.html#fillInputfields">fillInputfields</a></li><li><a href="global.html#formFields">formFields</a></li><li><a href="global.html#GET">GET</a></li><li><a href="global.html#getAdminData">getAdminData</a></li><li><a href="global.html#getAdminId">getAdminId</a></li><li><a href="global.html#getAllData">getAllData</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#mongoose">mongoose</a></li><li><a href="global.html#normalAdminSchema">normalAdminSchema</a></li><li><a href="global.html#path">path</a></li><li><a href="global.html#POST">POST</a></li><li><a href="global.html#postBlog">postBlog</a></li><li><a href="global.html#PUT">PUT</a></li><li><a href="global.html#redirectSignup">redirectSignup</a></li><li><a href="global.html#routes">routes</a></li><li><a href="global.html#SuperAdminSchema">SuperAdminSchema</a></li><li><a href="global.html#userSchema">userSchema</a></li><li>{<a href="global.html#POST">POST</a>}</li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue Mar 22 2022 20:50:39 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

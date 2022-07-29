@@ -1,0 +1,386 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.row {
+    background: white;
+    border-radius: 30px;
+    box-shadow: 12px 12px 22px;
+    background-color: lightseagreen;
+    width: 85vw;
+}
+.navbar .collapse .navbar-nav li:hover{
+    background-color: lightblue;
+}
+
+.login h2 {
+    font-size: 4rem;
+    font-weight: 700;
+    font-family: 'Source Serif 4', sans-serif;
+}
+
+.sign h2 {
+    font-size: 4rem;
+    font-weight: 700;
+    font-family: 'Source Serif 4', sans-serif;
+}
+
+.inp {
+    height: 50px;
+    width: 70%;
+    border: none;
+    outline: none;
+    border-radius: 60px;
+    box-shadow: 10px 12px 16px -4px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 10px 12px 16px -4px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 10px 12px 16px -4px rgba(0, 0, 0, 0.75);
+}
+
+.btn1 {
+    height: 40%;
+    width: 50%;
+    border: none;
+    outline: none;
+    border-radius: 60px;
+    font-weight: 600;
+    background: rgb(165, 14, 14);
+    color: white;
+    margin-bottom: 2%;
+    margin-top: 4%;
+}
+
+.btn1:hover {
+    background: brown;
+    transition: 0.5s;
+}
+
+.row1 h4 {
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: 'Source Serif 4', sans-serif;
+}
+
+.row1 {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 3px 3px 8px;
+}
+
+label {
+    font-size: 15px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+}
+
+.btn {
+    height: 50%;
+    width: 40%;
+    border: 12px 12px 22px;
+    outline: none;
+    border-radius: 60px;
+    font-weight: 600;
+    background: rgb(52, 187, 52);
+    color: white;
+    display: inline;
+}
+
+.show-admins-data {
+    margin-bottom: 15%;
+}
+
+.admin-sec3 {
+    width: 100%;
+    margin-bottom: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+.btn:hover {
+    background: lightblue;
+    transition: 0.5s;
+}
+
+.logout-btn {
+    margin-top: 35%;
+}
+
+section .admin-sec3 .container {
+    width: 200px;
+    margin-bottom: 80px;
+}
+
+.admin-sec3 {
+    display: none;
+}
+
+.show-admins-data {
+    display: none;
+    height: 40px;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+
+/* Footer */
+
+.footer {
+    text-align: center;
+    background: #ddd;
+    margin-top: 80%;
+    left: 0;
+}
+
+
+/*header */
+
+.header {
+    margin-top: 60px;
+    width: 100%;
+    height: calc(100vh - 60px);
+    background: url(autumn-2712144.jpg);
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    text-align: center;
+}
+
+.heading {
+    color: #fff;
+    text-transform: capitalize;
+    font-size: 80px;
+    line-height: 60px;
+    margin-bottom: 80px;
+}
+
+.heading .small {
+    display: block;
+    font-size: 40px;
+}
+
+.heading .no-fill {
+    font-style: italic;
+    color: transparent;
+    -webkit-text-stroke: 2px #fff;
+}
+
+.btn2 {
+    padding: 10px 20px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.7);
+    color: #000;
+    text-decoration: none;
+    text-transform: capitalize;
+}
+
+
+/*image*/
+
+.blogs-section {
+    width: 100%;
+    padding: 50px 5vw;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 80px;
+}
+
+img {
+    width: 60%;
+    height: 50%;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.blog-overview {
+    margin: 10px 0 20px;
+    line-height: 30px;
+}
+
+.btn2.dark {
+    background: #1b1b1b;
+    color: #fff;
+}
+
+
+/*Banner*/
+
+.banner {
+    width: 100%;
+    height: 400px;
+    position: relative;
+    background: #e7e7e7;
+    background-size: cover;
+    background-position: center;
+}
+
+
+/* textfield */
+
+.blog {
+    width: 70vw;
+    min-width: 400px;
+    height: 100px;
+    display: block;
+    margin: auto;
+    padding: 50px 0;
+}
+
+textarea::-webkit-scrollbar {
+    width: 10px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+textarea {
+    background: dimgray;
+}
+
+.title,
+.article {
+    width: 100%;
+    min-height: 100px;
+    height: auto;
+    outline: none;
+    font-size: 50px;
+    font-weight: 600;
+    color: #2d2d2d;
+    resize: none;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.title::placeholder,
+.article::placeholder {
+    color: #2d2d2d;
+}
+
+.article {
+    height: 500px;
+    font-size: 20px;
+    margin-top: 20px;
+    line-height: 30px;
+    font-weight: 500;
+    padding-bottom: 100px;
+    white-space: pre-wrap;
+}
+
+#display-table,
+#mytable {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100vw;
+}
+
+#display-table td,
+#display-table th {
+    border: 1px solid rgb(70, 75, 146);
+    padding: 2px;
+}
+
+#display-table tr:nth-child(even) {
+    background-color: #f8efef;
+}
+
+#display-table tr:hover {
+    background-color: rgb(236, 228, 228);
+}
+
+#display-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #04AA6D;
+    color: white;
+}
+.button-sec {
+    height: 50px;
+    width: 190px;
+    border: 12px 12px 22px;
+    outline: none;
+    border-radius: 60px;
+    font-weight: 600;
+    background: rgb(52, 187, 52);
+    color: white;
+    left: 70%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.button-sec:hover {
+    background: lightblue;
+    transition: 0.5s;
+}
+
+@media (min-width:360px) {
+    .inp {
+        width: 90%;
+    }
+    .btn1 {
+        height: 40%;
+        width: 35%;
+    }
+    .row {
+        width: 95%;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+    .row1 {
+        width: 100%;
+    }
+    table {
+        overflow-x: hidden;
+    }
+    .logout-btn {
+        margin-top: 35%;
+        margin-left: 2rem;
+        margin-right: 2rem;
+    }
+}
+
+@media (max-width:550px) {
+    .btn {
+        height: 40%;
+        width: 45%;
+    }
+    .button-sec {
+        margin-top: 4%;
+    }
+}
+@media (max-width:430px) {
+    .button-sec {
+        margin-top: 4%;
+    }
+}
+
+@media (min-width:550px) {
+    .btn {
+        height: 40%;
+        width: 25%;
+        margin-right: 0;
+        margin-left: 1%;
+    }
+    .button-sec {
+        margin-top: 4%;
+    }
+}
+
+@media (max-width:480px) {
+    .row {
+        height: 60%;
+        width: 100%;
+    }
+    .row1 {
+        width: 100%;
+    }
+}

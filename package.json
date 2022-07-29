@@ -1,0 +1,32 @@
+{
+    "name": "exambyteproject-1",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+        "dev": "nodemon server.js -e js,ejs,css",
+        "start": "node server.js",
+        "jsdoc": "jsdoc -c jsdoc.json"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "axios": "^0.27.2",
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.20.0",
+        "cookie-parser": "^1.4.6",
+        "dotenv": "^14.3.2",
+        "ejs": "^3.1.7",
+        "express": "^4.17.3",
+        "jsonwebtoken": "^8.5.1",
+        "jssha": "^3.2.0",
+        "mongoose": "^6.3.1",
+        "multer": "^1.4.4",
+        "nodejs": "^0.0.0",
+        "nodemon": "^2.0.15",
+        "request": "^2.88.2",
+        "slugify": "^1.6.5",
+        "vimeo": "^2.1.1"
+    }
+}

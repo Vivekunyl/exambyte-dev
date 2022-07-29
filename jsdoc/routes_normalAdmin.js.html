@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: routes/normalAdmin.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: routes/normalAdmin.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file This file inside Routes will be used to route to normal Admin/faculty member to route to different Functionalities such as Login faculty member , Create a blog , create a MCQ test and can see other Admin Blogs.
+ * @see &lt;a href="routes_normalAdmin.js.html">see the source code Here&lt;/a>
+ */
+
+
+ const express = require('express');
+ const router = express.Router();
+ const normalAdminControllers = require('../controllers/NormalAdmin_controller'); //Controller for and Registration authentication
+ const authenticate = require('../middlewares/authenticateAdmin');
+ const multer = require('../middlewares/multer');
+ 
+ 
+ 
+ router.get('/logoutNormalAdmin',authenticate,normalAdminControllers.logout_normalAdmin);
+ 
+ router.get('/getAllBlogs', authenticate, normalAdminControllers.allBlogs_get);
+ 
+ router.get('/categoryBlog/:category',normalAdminControllers.Blog_category_get);
+ 
+ router.get('/getAdminTest/:id',normalAdminControllers.Admin_test_get);
+ 
+ router.delete('/deleteTest/:id',normalAdminControllers.Admin_test_delete);
+ 
+ //......................Routes for Login.....................................
+ 
+ /**
+  * Routing to login.ejs
+  * @module normal_admin_router
+  * @method GET
+  */
+ router.get('/loginNormalAdmin', normalAdminControllers.loginAdmin_get);
+ 
+ /**
+  * Routing to login
+  * @module normal_admin_router
+  * @method POST
+  */
+ 
+ router.post('/loginNormalAdmin', normalAdminControllers.loginAdmin_post);
+ 
+ //......................Routes for Normal admin Panel.....................................
+ 
+ /**
+  * Route to get normal admin Panel
+  * @module normal_admin_router
+  * @method GET
+  */
+ router.get('/NormalAdminDashboard', authenticate, normalAdminControllers.dashboard_get);
+ 
+ /**
+  * Route to get Normal admin Details
+  * @module normal_admin_router
+  * @method GET
+  */
+ router.get('/getNormalAdminDetails', authenticate, normalAdminControllers.admin_details_get);
+ 
+ //......................Routes for Normal admin Profile.....................................
+ 
+ 
+ /**
+  * Route to get normal admin Panel
+  * @module normal_admin_router
+  * @method GET
+  */
+ router.get('/NormalAdminProfile', authenticate, normalAdminControllers.adminProfile_get);
+ 
+ 
+ 
+ 
+ //......................Routes for CRUD operation of Blogs.....................................
+ 
+ 
+ /**
+  * Route to get add blog panel
+  * @module normal_admin_router
+  * @method GET
+  */
+ router.get('/addBlog/:id', authenticate, normalAdminControllers.addBlog_get);
+ 
+ /**
+  * Route to post blog data of a normal Admin
+  * @module normal_admin_router
+  * @method POST
+  */
+ router.post('/addBlog/:id', authenticate, multer.array('file'), normalAdminControllers.addBlog_post);
+ 
+ /**
+  * route to get a particular blog a normal Admin
+  * @module normal_admin_router
+  * @method GET
+  */
+ 
+ router.get(`/:slug`, authenticate, normalAdminControllers.showBlog_get);
+ 
+ /**
+  * Route to get all blogs of admin
+  * @module normal_admin_router
+  * @method GET
+  */
+ router.get('/showAdminAllBlogs/:id', authenticate, normalAdminControllers.showAllBlogs_get);
+ 
+ /**
+  * Route to put admin blo details for updating
+  * @module normal_admin_router
+  * @method PUT
+  */
+ 
+ router.put('/updateBlog/:id', authenticate, normalAdminControllers.updateBlog_put);
+ 
+ /**
+  * Route to delete a particular blog of an admin using the id of the particular blog
+  * @module normal_admin_router
+  * @method DELETE
+  */
+ router.delete('/deleteBlog/:id', authenticate, normalAdminControllers.deleteBlog_delete);
+ 
+ 
+ 
+ 
+ 
+ 
+ /**
+  * @exports normal_admin_router
+  */
+ module.exports = router;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-addBlog_get.html">addBlog_get</a></li><li><a href="module-addBlog_post.html">addBlog_post</a></li><li><a href="module-admin_details_get.html">admin_details_get</a></li><li><a href="module-adminProfile_get.html">adminProfile_get</a></li><li><a href="module-create_admin.html">create_admin</a></li><li><a href="module-dashboard_get.html">dashboard_get</a></li><li><a href="module-delete_admin_data.html">delete_admin_data</a></li><li><a href="module-deleteBlog_delete.html">deleteBlog_delete</a></li><li><a href="module-edit_admin_data_get.html">edit_admin_data_get</a></li><li><a href="module-get_login.html">get/login</a></li><li><a href="module-get_register.html">get/register</a></li><li><a href="module-get_admin_data.html">get_admin_data</a></li><li><a href="module-get_superadmin_panel.html">get_superadmin_panel</a></li><li><a href="module-getAllDocuments.html">getAllDocuments</a></li><li><a href="module-loginAdmin_post.html">loginAdmin_post</a></li><li><a href="module-normal_admin_router.html">normal_admin_router</a></li><li><a href="module-normal_user_home.html">normal_user_home</a></li><li><a href="module-normal_user_login_post.html">normal_user_login_post</a></li><li><a href="module-normal_user_login_signup.html">normal_user_login_signup</a></li><li><a href="module-normal_user_logout_get.html">normal_user_logout_get</a></li><li><a href="module-register_normal_user_post.html">register_normal_user_post</a></li><li><a href="module-saveTest_post.html">saveTest_post</a></li><li><a href="module-showAllBlogs_get.html">showAllBlogs_get</a></li><li><a href="module-showBlog_get.html">showBlog_get</a></li><li><a href="module-super_Admin_Routes.html">super_Admin_Routes</a></li><li><a href="module-SuperAdmin_login_post.html">SuperAdmin_login_post</a></li><li><a href="module-superAdmin_logout_get.html">superAdmin_logout_get</a></li><li><a href="module-SuperAdmin_register_post.html">SuperAdmin_register_post</a></li><li><a href="module-test_module.html">test_module</a></li><li><a href="module-testAdmin_get.html">testAdmin_get</a></li><li><a href="module-testData_get.html">testData_get</a></li><li><a href="module-testSlug_get.html">testSlug_get</a></li><li><a href="module-update_admin_data_put.html">update_admin_data_put</a></li><li><a href="module-updateBlog_put.html">updateBlog_put</a></li><li>{mongoose.module:model}</li></ul><h3>Global</h3><ul><li><a href="global.html#adminPanel">adminPanel</a></li><li><a href="global.html#adminSchema">adminSchema</a></li><li><a href="global.html#authRoute">authRoute</a></li><li><a href="global.html#bcrypt">bcrypt</a></li><li><a href="global.html#bodyParser">bodyParser</a></li><li><a href="global.html#cookieParser">cookieParser</a></li><li><a href="global.html#DELETE">DELETE</a></li><li><a href="global.html#deleteAdmin">deleteAdmin</a></li><li><a href="global.html#deleteBlog">deleteBlog</a></li><li><a href="global.html#displayCreateBlogSection">displayCreateBlogSection</a></li><li><a href="global.html#displayData">displayData</a></li><li><a href="global.html#displayShowBlogSection">displayShowBlogSection</a></li><li><a href="global.html#dotenv">dotenv</a></li><li><a href="global.html#editAdmin">editAdmin</a></li><li><a href="global.html#editBlog">editBlog</a></li><li><a href="global.html#express">express</a></li><li><a href="global.html#fillInputfields">fillInputfields</a></li><li><a href="global.html#formFields">formFields</a></li><li><a href="global.html#GET">GET</a></li><li><a href="global.html#getAdminData">getAdminData</a></li><li><a href="global.html#getAdminId">getAdminId</a></li><li><a href="global.html#getAllData">getAllData</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#mongoose">mongoose</a></li><li><a href="global.html#normalAdminSchema">normalAdminSchema</a></li><li><a href="global.html#path">path</a></li><li><a href="global.html#POST">POST</a></li><li><a href="global.html#postBlog">postBlog</a></li><li><a href="global.html#PUT">PUT</a></li><li><a href="global.html#redirectSignup">redirectSignup</a></li><li><a href="global.html#routes">routes</a></li><li><a href="global.html#SuperAdminSchema">SuperAdminSchema</a></li><li><a href="global.html#userSchema">userSchema</a></li><li>{<a href="global.html#POST">POST</a>}</li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue Mar 22 2022 20:50:39 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,350 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.row{
+    background: white;
+    border-radius: 25px;
+    background-color: rgb(66, 64, 64);
+    width: 70vw;
+    margin-top: 3%;
+}
+.heading{
+    margin-top: 5%;
+}
+.navbar .collapse .navbar-nav li:hover{
+    background-color: lightblue;
+}
+
+.row1{
+    background: white;
+    border-radius: 10px;
+    border: solid;
+    background-color: rgb(66, 64, 64);
+    width: 70vw;
+    margin-left: 15%;
+    margin-top: 10%;
+}
+.row2{
+    border-radius: 10px;
+    border: solid;
+    width: 65vw;
+    margin-top: 4%;
+    margin-left: 4%;
+    margin-right: 2%;
+    margin-bottom: 4%;
+    background-color: lightgray;
+    
+}
+
+.start-quiz h2{
+    font-family: 'IBM Plex Sans Thai Looped', sans-serif;
+font-family: 'Libre Baskerville', serif;
+font-family: 'Mukta', sans-serif;
+font-family: 'Source Serif 4', sans-serif;
+font-weight: bolder;
+font-size: 1.5rem;
+margin-left: 5%;
+margin-top: 2%;
+    
+}
+
+.start-quiz ul {
+    list-style: none;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: larger;
+}
+
+.start-quiz .row{
+    background-color: rgb(169, 211, 211);
+}
+
+
+
+.start-quiz .answer{
+    margin-left: 30%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+.btn{
+    margin-bottom: 2%;
+    margin-top: 4%;
+    
+}
+
+
+.show-quiz-link{
+    font-weight: bolder;
+    margin-left: 4%;
+    margin-top: 5%;
+    margin-bottom: 0%;
+    
+
+}
+.show-quiz-link label{
+    
+    margin-right: 55%;
+    font-family:'Times New Roman', Times, serif;
+    font-size: larger;
+}
+
+#show-quiz-link{
+    display: none;
+}
+.start-quiz1{
+    display: none;
+}
+
+
+
+.btn2{
+    height: 40px;
+    width: 30%;
+    border: 12px 12px 22px;
+    outline: none;
+    border-radius: 1.2rem;
+    font-weight: 600;
+    color: black;
+    background-color: rgb(211 211 211);
+    margin-left: 30%;
+    margin-bottom: 4%;
+    margin-top: 4%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    box-shadow: 10px 10px 5px -5px rgba(0,0,0,0.75);
+-webkit-box-shadow: 10px 10px 5px -5px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 5px -5px rgba(0,0,0,0.75);
+}
+
+.btn2:hover{
+    background-color: rgb(241, 150, 179);
+    transition: 0.2s;
+}
+
+.btn3{
+    height: 40px;
+    width: 30%;
+    border: 12px 12px 22px;
+    outline: none;
+    border-radius: 60px;
+    font-weight: 600;
+    color: white;
+    background-color: rgb(0, 128, 128);
+    margin-left: 12%;
+    margin-bottom: 4%;
+    margin-top: 4%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    box-shadow: 10px 10px 5px -5px rgba(0,0,0,0.75);
+-webkit-box-shadow: 10px 10px 5px -5px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 5px -5px rgba(0,0,0,0.75);
+}
+
+.btn3:hover{
+    background-color: rgb(102, 255, 255);
+    transition: 0.2s;
+}
+
+
+.heading{
+    font-family:Arial, Helvetica, sans-serif;
+    margin-left: 0;
+}
+
+.inp,select,option{
+    height: 50px;
+    width: 70%;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font:bolder;
+    box-shadow: 10px 10px 5px -5px rgba(0,0,0,0.75);
+-webkit-box-shadow: 10px 10px 5px -5px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 5px -5px rgba(0,0,0,0.75);
+    background-color:lightgray;
+}
+
+#title{
+    height: 50px;
+    width: 60%;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font:bolder;
+    box-shadow: 10px 10px 5px -5px rgba(0,0,0,0.75);
+-webkit-box-shadow: 10px 10px 5px -5px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 5px -5px rgba(0,0,0,0.75);
+    background-color:lightgray;
+}
+
+.link{
+    height: 35px;
+    width: 70%;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font:bolder;
+    background-color: lightgray;
+   
+}
+
+
+.btn{
+    height: 40px;
+    width: 30%;
+    border: 12px 12px 22px;
+    outline: none;
+    border-radius: 60px;
+    font-weight: 600;
+    background:darkgreen;
+    color: white;
+    left: 70%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    box-shadow: 10px 10px 5px -5px rgba(0,0,0,0.75);
+-webkit-box-shadow: 10px 10px 5px -5px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 5px -5px rgba(0,0,0,0.75);
+
+}
+.btn:hover{
+    background:lightblue;
+    transition: 0.5s;
+}
+
+.btn1{
+    height: 40px;
+    width: 70%;
+    border: 12px 12px 22px;
+    outline: none;
+    border-radius: 60px;
+    font-weight: 600;
+    background:rgb(122, 11, 11);
+    color: white;
+    left: 70%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    box-shadow: 10px 10px 5px -5px rgba(0,0,0,0.75);
+-webkit-box-shadow: 10px 10px 5px -5px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 5px -5px rgba(0,0,0,0.75);
+
+
+}
+.btn1:hover{
+    background: lightpink;
+    transition: 0.5s;
+}
+
+
+.navigation-btn{
+    display: flex;
+}
+
+.position-left{
+    width:50%;
+}
+
+.position-right{
+    width:50%;
+}
+
+
+@media (min-width:1700px) {
+    .row{
+      width: 80%;
+      margin-left: 10%;
+    }
+    .inp,select,option{
+        width: 90%;
+    }
+  }
+
+  @media (min-width:950px){
+    .row{
+        width: 80%;
+        margin-left: 8%;
+      }
+      .inp,select,option{
+          width: 90%;
+      }
+      #title{
+        width: 60%; 
+      }
+      .btn2,.btn{
+          width: 30%;
+      }
+      .row1,.row2{
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+        font-size: medium;
+        font-weight:bolder;
+    }
+  }
+  @media (max-width:360px){
+    .row{
+        width: 80%;
+        margin-left: 2rem;
+      }
+      .inp,select,option{
+          width: 90%;
+      }
+     
+  }
+  @media (min-width:300px){
+    #title{
+        width: 80%;
+        
+      }
+      .row{
+        width: 98%;
+        margin-left: 2%;
+        margin-right: 2%;
+        border-radius: 10px;
+      }
+      .inp,select,option{
+          width: 90%;
+      }
+      button{
+          width: 40%;
+      }
+      .row1,.row2{
+          width: 90%;
+          margin-left: 5%;
+          margin-right: 5%;
+          font-size: medium;
+          font-weight:300;
+      }
+      .btn2{
+          width: 40%;
+      }
+      .btn{
+        width:80%;
+        border-radius: 8px;
+      }
+      .heading{
+          margin-top: 20%;
+      }
+      
+  }
+  @media (min-width:600px) {
+      #title{
+          width: 60%;
+      }
+  }
+  @media (min-width:450px) {
+    .heading{
+        margin-top: 17%;
+    }
+}
+@media (min-width:650px) {
+    .heading{
+        margin-top: 10%;
+    }
+}
+@media (min-width:1043px) {
+    .heading{
+        margin-top: 5%;
+    }
+}
+ 

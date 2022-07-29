@@ -1,0 +1,23 @@
+h1 {
+    color: blue;
+}
+
+button {
+    background-color: blue;
+}
+
+#edit-admin {
+    display: none;
+}
+
+#add-admin-form {
+    flex-direction: column;
+}
+
+#add-admin-form input {
+    width: 50%;
+}
+
+#show-admins-data {
+    display: none;
+}
